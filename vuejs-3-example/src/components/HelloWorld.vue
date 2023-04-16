@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const props = defineProps({
   msg: {
     type: String,
     required: true,
-    default: 2
+    default: "2",
   },
 });
 
-const count = ref(0)
+const count = ref(0);
 </script>
 
 <template>
@@ -24,6 +24,4 @@ const count = ref(0)
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
