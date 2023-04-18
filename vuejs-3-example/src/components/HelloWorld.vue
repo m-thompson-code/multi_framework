@@ -5,8 +5,8 @@ const props = defineProps({
   msg: {
     type: String,
     required: true,
-    default: "2",
-  },
+    default: "2"
+  }
 });
 
 const count = ref(0);
