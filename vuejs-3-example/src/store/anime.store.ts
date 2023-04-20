@@ -22,6 +22,9 @@ export const useAnimeStore = defineStore({
     },
     saveAnimeToStore(anime: AnimeTypeStore) {
       this.storedAnime = [...this.storedAnime, anime];
+    },
+    deleteAnimeFromStore(anime: AnimeTypeStore) {
+      this.storedAnime = this.storedAnime.filter((item) => item.selectedAnime.title !== anime.selectedAnime.title);
     }
   },
   getters: {

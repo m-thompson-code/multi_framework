@@ -14,3 +14,9 @@ input {
 button[type="submit"] {
   @apply px-5 py-2 bg-green-700 text-white hover:bg-green-400 rounded-lg text-lg cursor-pointer duration-300 transition-all;
 }
+
+button {
+  &.general {
+    @apply p-2 rounded-lg min-w-[120px];
+  }
+}
