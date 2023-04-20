@@ -4,7 +4,7 @@
     <router-link to="/login" class="link"> Logout </router-link>
   </nav>
 
-  <main class="w-full max-w-[840px] mx-auto mt-20">
+  <main class="w-full max-w-[840px] mx-auto mt-20 px-3 sm:px-6">
     <router-view />
   </main>
 </template>

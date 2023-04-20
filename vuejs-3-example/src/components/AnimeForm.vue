@@ -2,10 +2,7 @@
   <h2 class="mb-2 text-xl text-center text-green-800">Choose an Anime</h2>
   <form @submit.prevent="onSubmit">
     <!-- name search -->
-    <input v-model="model.selectedAnime" type="text" placeholder="Enter anime name" />
-    <div v-if="errors.selectedAnimeError?.errors" class="flex flex-col">
-      <span v-for="(err, index) of errors.selectedAnimeError.errors" :key="index" class="text-red-400">{{ err }}</span>
-    </div>
+    <AnimeFormSearch v-model:model-value="model.selectedAnime" />
 
     <!-- show text area checkbox -->
     <div class="flex items-center justify-end gap-4">
@@ -36,16 +33,18 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from "vue";
 import type { AnimeFormType } from "../models";
+import { AnimeTypeStore } from "../store/anime.store";
 import { useValidator } from "../utils";
+import AnimeFormSearch from "./AnimeFormSearch.vue";
 
 const emit = defineEmits<{
-  (e: "formSubmit", value: AnimeFormType): void;
+  (e: "formSubmit", value: AnimeTypeStore): void;
 }>();
 
 const showTextArea = ref(false);
 
 const model = ref<AnimeFormType>({
-  selectedAnime: "",
+  selectedAnime: null,
   description: "",
   isCool: false
   // willError: 'lol',
@@ -55,21 +54,6 @@ const errors = computed(() => {
   // getting value because hard to debug
   const showTextAreaValue = showTextArea.value;
   const modelValue = model.value;
-
-  const selectedAnimeError = useValidator({
-    value: modelValue.selectedAnime,
-    type: "text",
-    validations: {
-      required: {
-        value: true,
-        message: "Value is required"
-      },
-      min: {
-        value: 3,
-        message: "Value must be at least 3 characters"
-      }
-    }
-  });
 
   const descriptionError = showTextAreaValue
     ? useValidator({
@@ -84,7 +68,7 @@ const errors = computed(() => {
       })
     : { errors: [] };
 
-  return { selectedAnimeError, descriptionError };
+  return { descriptionError };
 });
 
 watchEffect(() => {
@@ -96,29 +80,24 @@ watchEffect(() => {
 });
 
 const onSubmit = () => {
-  if (errors.value.selectedAnimeError.errors.length > 0) {
+  if (!model.value.selectedAnime) {
+    console.log("Submit form - no selected anime");
     return;
   }
 
   if (errors.value.descriptionError.errors.length > 0) {
+    console.log("Submit form - description error");
     return;
   }
 
-  emit("formSubmit", model.value);
+  console.log("submitting", model.value);
+
+  emit("formSubmit", {
+    selectedAnime: model.value.selectedAnime,
+    description: model.value.description,
+    isCool: model.value.isCool
+  });
 };
 </script>
 
-<style scoped>
-form {
-  @apply flex flex-col gap-4;
-}
-
-textarea,
-input {
-  @apply border border-gray-300 rounded-md p-2;
-}
-
-button[type="submit"] {
-  @apply px-5 py-2 bg-green-700 text-white hover:bg-green-400 rounded-lg text-lg cursor-pointer duration-300 transition-all;
-}
-</style>
+<style scoped></style>

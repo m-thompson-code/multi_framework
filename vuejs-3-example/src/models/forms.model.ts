@@ -1,5 +1,7 @@
+import { AnimeData } from "./api-anime-data.model";
+
 export type AnimeFormType = {
-  selectedAnime: string;
+  selectedAnime: AnimeData | null;
   description: string;
   isCool: boolean;
 };
