@@ -32,9 +32,9 @@
 
 <script setup lang="ts">
 import { computed, ref, watchEffect } from "vue";
-import type { AnimeFormType } from "../models";
-import { AnimeTypeStore } from "../store/anime.store";
-import { useValidator } from "../utils";
+import type { AnimeFormType } from "../../models";
+import { AnimeTypeStore } from "../../store/anime.store";
+import { useValidator } from "../../utils";
 import AnimeFormSearch from "./AnimeFormSearch.vue";
 
 const emit = defineEmits<{
@@ -97,6 +97,16 @@ const onSubmit = () => {
     description: model.value.description,
     isCool: model.value.isCool
   });
+
+  clearForm();
+};
+
+const clearForm = () => {
+  model.value = {
+    selectedAnime: null,
+    description: "",
+    isCool: false
+  };
 };
 </script>
 

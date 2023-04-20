@@ -20,16 +20,16 @@
         {{ data.title }}
       </button>
     </div>
-    <div v-else-if="searchLoadingRef && searchRef.length > 3 && !searchSelectedRef">Loading ...</div>
+    <div v-else-if="searchLoadingRef && searchRef.length > 3">Loading ...</div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { watchDebounced } from "@vueuse/core";
 import { PropType, computed, ref, watchEffect } from "vue";
-import { AnimeData } from "../models/api-anime-data.model";
-import { useAnimeStore } from "../store/anime.store";
-import { useValidator } from "../utils";
+import { AnimeData } from "../../models/api-anime-data.model";
+import { useAnimeStore } from "../../store/anime.store";
+import { useValidator } from "../../utils";
 
 const animeStore = useAnimeStore();
 
@@ -53,10 +53,8 @@ const searchLoadingRef = ref<boolean>(false);
 
 watchEffect(() => {
   // when props change from parent, put this value in input
-  if (props.modelValue) {
-    console.log("effect", props.modelValue);
-    searchRef.value = props.modelValue.title;
-  }
+  console.log("Parent changing Anime Form search prop", props.modelValue);
+  searchRef.value = props.modelValue?.title ?? "";
 });
 
 watchEffect(() => {
