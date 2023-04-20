@@ -97,6 +97,16 @@ const onSubmit = () => {
     description: model.value.description,
     isCool: model.value.isCool
   });
+
+  clearForm();
+};
+
+const clearForm = () => {
+  model.value = {
+    selectedAnime: null,
+    description: "",
+    isCool: false
+  };
 };
 </script>
 
