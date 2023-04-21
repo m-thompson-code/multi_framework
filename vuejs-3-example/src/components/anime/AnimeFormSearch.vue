@@ -9,7 +9,7 @@
     </div>
 
     <!-- results -->
-    <div v-if="!searchLoadingRef && !searchSelectedRef" class="flex flex-col w-full">
+    <div v-if="!searchLoadingRef && !searchSelectedRef && searchRef.length > 3" class="flex flex-col w-full">
       <button
         v-for="data in animeStore.getLoadedAnime"
         :key="data.title"

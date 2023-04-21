@@ -33,6 +33,9 @@ export const useAnimeStore = defineStore({
     },
     getLoadedAnime: (state) => {
       return state.loadedAnime;
+    },
+    getAnimeTypeStoreById: (state) => (id: number) => {
+      return state.storedAnime.find((anime) => anime.selectedAnime.mal_id === id);
     }
   }
 });

@@ -4,8 +4,12 @@
     <div class="flex items-center justify-between">
       <h3 class="text-lg">{{ props.title }}</h3>
       <div class="flex items-center gap-2">
-        <button type="button" class="text-white bg-blue-600 general" @click="onDetails">Details</button>
-        <button type="button" class="text-white bg-red-600 general" @click="onDelete">Remove</button>
+        <button v-if="showButtonDetails" type="button" class="text-white bg-blue-600 general" @click="onDetails">
+          Details
+        </button>
+        <button v-if="showButtonDelete" type="button" class="text-white bg-red-600 general" @click="onDelete">
+          Remove
+        </button>
       </div>
     </div>
 
@@ -24,6 +28,14 @@ const props = defineProps({
   title: {
     type: String,
     required: true
+  },
+  showButtonDetails: {
+    type: Boolean,
+    default: false
+  },
+  showButtonDelete: {
+    type: Boolean,
+    default: false
   }
 });
 

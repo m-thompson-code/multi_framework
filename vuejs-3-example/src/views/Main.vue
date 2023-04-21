@@ -1,6 +1,6 @@
 <template>
   <nav class="flex items-center justify-between w-full gap-4 p-4 bg-green-700">
-    <router-link to="/about" class="link"> About </router-link>
+    <router-link to="/dashboard" class="link"> Dashboard </router-link>
     <router-link to="/login" class="link"> Logout </router-link>
   </nav>
 
