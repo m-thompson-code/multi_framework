@@ -1,7 +1,7 @@
 <template>
   <div class="relative flex flex-col">
     <!-- search text input -->
-    <input v-model="searchRef" type="text" placeholder="Search.." />
+    <input v-model="searchRef" type="text" placeholder="Search.." @keydown="onInputKeyDown" />
 
     <!-- errors in search -->
     <div v-if="errors.selectedAnimeError.errors.length > 0" class="flex flex-col mb-2">
@@ -57,25 +57,16 @@ watchEffect(() => {
   searchRef.value = props.modelValue?.title ?? "";
 });
 
-watchEffect(() => {
-  // when props change from parent, put this value in input
-  console.log("typing", searchRef.value);
-  searchLoadingRef.value = true;
-});
-
 // wait some time before firing api call
 watchDebounced(
   searchRef,
   () => {
     // fetching anime data from api, don't fetch if I already selected
     if (searchRef.value.length > 3 && !searchSelectedRef.value) {
-      searchLoadingRef.value = false;
       searchSelectedRef.value = false;
+      searchLoadingRef.value = false;
       animeStore.fetchAnime(searchRef.value);
     }
-
-    // setting to true to allow fetching when typing
-    searchSelectedRef.value = false;
   },
   { debounce: 1000 }
 );
@@ -109,8 +100,17 @@ const onClick = (data: AnimeData) => {
   // set selected to true
   searchSelectedRef.value = true;
 
+  // set loading to false
+  searchLoadingRef.value = false;
+
   // emit event to parent
   emit("update:modelValue", data);
+};
+
+const onInputKeyDown = () => {
+  console.log("onInputKeyDown");
+  searchLoadingRef.value = true;
+  searchSelectedRef.value = false;
 };
 </script>
 
