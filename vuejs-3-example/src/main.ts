@@ -1,27 +1,41 @@
 import { createPinia } from "pinia";
 import { createApp } from "vue";
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
+import { useAuthenticationStore } from "./store";
 import "./style.scss";
-import AnimeDetails from "./views/AnimeDetails.vue";
-import Dashboard from "./views/Dashboard.vue";
 import Login from "./views/Login.vue";
 import Main from "./views/Main.vue";
 
 const router = createRouter({
   // Provide the history implementation to use. We are using the hash history for simplicity here.
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: [
     {
       path: "/",
-      component: Main,
+      component: Main, // eager load
       children: [
-        { path: "dashboard", component: Dashboard },
-        { path: "anime/:id", component: AnimeDetails }
+        // lazy load
+        { path: "dashboard", component: () => import("./views/Dashboard.vue") },
+        { path: "anime/:id", component: () => import("./views/AnimeDetails.vue") }
       ]
     },
     { path: "/login", component: Login }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    // always scroll to top
+    return { top: 0 };
+  }
+});
+
+router.beforeEach(async (to, from, next): Promise<void> => {
+  const authenticationStore = useAuthenticationStore();
+
+  if (!authenticationStore.user && to.path !== "/login") {
+    return next("/login");
+  }
+
+  return next();
 });
 
 createApp(App).use(router).use(createPinia()).mount("#app");
