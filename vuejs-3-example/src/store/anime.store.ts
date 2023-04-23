@@ -27,6 +27,14 @@ export const useAnimeStore = defineStore({
     },
     deleteAnimeFromStore(anime: AnimeTypeStore) {
       this.storedAnime = this.storedAnime.filter((item) => item.selectedAnime.title !== anime.selectedAnime.title);
+    },
+    editAnimeInStore(animeId: number, newDescription: string) {
+      this.storedAnime = this.storedAnime.map((item) => {
+        if (item.selectedAnime.mal_id === animeId) {
+          item.description = newDescription;
+        }
+        return item;
+      });
     }
   },
   getters: {
