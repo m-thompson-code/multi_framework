@@ -22,7 +22,7 @@ export default defineConfig({
         /\.vue$/,
         /\.vue\?vue/ // .vue
       ],
-      imports: ["vue", "vue-router"]
+      imports: ["vue", "vue-router", "pinia"]
     })
   ]
 });

@@ -9,14 +9,17 @@
       leave-to-class="scale-95 translate-y-0 translate-y-10 opacity-0"
     >
       <div
-        v-show="prop.showModal"
+        v-if="prop.showModal"
         ref="modal"
         class="fixed inset-0 z-10 p-6 overflow-y-auto bg-black bg-opacity-50"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-headline"
       >
-        <div class="p-4 min-w-[420px] max-w-[420px] bg-gray-400 rounded-lg mx-auto mt-[30%]">
+        <div
+          v-on-click-outside="() => $emit('cancelClicked')"
+          class="p-4 min-w-[420px] max-w-[420px] bg-gray-400 rounded-lg mx-auto mt-[30%]"
+        >
           <textarea v-model="input" placeholder="type value ..." class="w-full" />
 
           <div class="flex items-center gap-3 mt-4">
@@ -42,7 +45,10 @@
 </template>
 
 <script setup lang="ts">
+import { vOnClickOutside } from "@vueuse/components";
+
 const input = ref<string>("");
+const inputRef = ref<HTMLInputElement | null>(null);
 
 const prop = defineProps({
   showModal: {
