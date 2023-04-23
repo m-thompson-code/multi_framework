@@ -31,8 +31,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watchEffect } from "vue";
+// import { computed, ref, watchEffect } from "vue";
 import type { AnimeFormType } from "../../models";
+import { User, useAuthenticationStore } from "../../store";
 import { AnimeTypeStore } from "../../store/anime.store";
 import { useValidator } from "../../utils";
 import AnimeFormSearch from "./AnimeFormSearch.vue";
@@ -41,6 +42,7 @@ const emit = defineEmits<{
   (e: "formSubmit", value: AnimeTypeStore): void;
 }>();
 
+const authenticationStore = useAuthenticationStore();
 const showTextArea = ref(false);
 
 const model = ref<AnimeFormType>({
@@ -95,7 +97,8 @@ const onSubmit = () => {
   emit("formSubmit", {
     selectedAnime: model.value.selectedAnime,
     description: model.value.description,
-    isCool: model.value.isCool
+    isCool: model.value.isCool,
+    user: authenticationStore.getUser as User
   });
 
   clearForm();

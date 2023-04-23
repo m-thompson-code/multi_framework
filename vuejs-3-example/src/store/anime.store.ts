@@ -1,11 +1,13 @@
 import { defineStore } from "pinia";
 import { getAnime } from "../api/api-anime";
 import { AnimeData } from "../models/api-anime-data.model";
+import { User } from "./auth.store";
 
 export type AnimeTypeStore = {
   selectedAnime: AnimeData;
   description: string;
   isCool: boolean;
+  user: User;
 };
 
 export const useAnimeStore = defineStore({
@@ -25,6 +27,14 @@ export const useAnimeStore = defineStore({
     },
     deleteAnimeFromStore(anime: AnimeTypeStore) {
       this.storedAnime = this.storedAnime.filter((item) => item.selectedAnime.title !== anime.selectedAnime.title);
+    },
+    editAnimeInStore(animeId: number, newDescription: string) {
+      this.storedAnime = this.storedAnime.map((item) => {
+        if (item.selectedAnime.mal_id === animeId) {
+          item.description = newDescription;
+        }
+        return item;
+      });
     }
   },
   getters: {
