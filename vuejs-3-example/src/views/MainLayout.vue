@@ -8,9 +8,11 @@
 
   <main class="w-full max-w-[840px] mx-auto mt-20 px-3 sm:px-6">
     <RouterView v-slot="{ Component, route }" class="route-view">
-      <Transition name="fade">
+      <Transition name="fade" mode="out-in">
         <!-- rendering dynamic component -->
-        <component :is="Component" :key="route.path" />
+        <div :key="route.path">
+          <component :is="Component" />
+        </div>
       </Transition>
     </RouterView>
   </main>
@@ -40,6 +42,6 @@ const onLogOut = () => {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease-out;
+  transition: opacity 0.3s ease-out;
 }
 </style>
