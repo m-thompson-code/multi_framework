@@ -5,8 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { useRoute } from "vue-router";
 import AnimeDetails from "../components/anime/AnimeDetails.vue";
 import GeneralCard from "../components/shared/GeneralCard.vue";
 import { AnimeTypeStore, useAnimeStore } from "../store/anime.store";

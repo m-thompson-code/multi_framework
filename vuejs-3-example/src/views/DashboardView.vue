@@ -23,10 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from "vue-router";
-import AnimeDetails from "../components/anime/AnimeDetails.vue";
-import AnimeForm from "../components/anime/AnimeForm.vue";
-import GeneralCard from "../components/shared/GeneralCard.vue";
 import { AnimeTypeStore, useAnimeStore } from "../store/anime.store";
 
 const animeStore = useAnimeStore();

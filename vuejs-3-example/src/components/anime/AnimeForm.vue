@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watchEffect } from "vue";
+// import { computed, ref, watchEffect } from "vue";
 import type { AnimeFormType } from "../../models";
 import { User, useAuthenticationStore } from "../../store";
 import { AnimeTypeStore } from "../../store/anime.store";
