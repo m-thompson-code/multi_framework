@@ -1,11 +1,13 @@
 import { defineStore } from "pinia";
 import { getAnime } from "../api/api-anime";
 import { AnimeData } from "../models/api-anime-data.model";
+import { User } from "./auth.store";
 
 export type AnimeTypeStore = {
   selectedAnime: AnimeData;
   description: string;
   isCool: boolean;
+  user: User;
 };
 
 export const useAnimeStore = defineStore({
