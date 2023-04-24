@@ -73,13 +73,25 @@ const errors = computed(() => {
   return { descriptionError };
 });
 
-watchEffect(() => {
-  //   console.log("effectScope");
-  //   console.log(showTextArea.value);
-  //   ^^ this is reactive
-  //   console.log(showTextArea);
-  //   ^^ this is not reactive
-});
+watchEffect(
+  () => {
+    //   console.log("effectScope");
+    //   console.log(showTextArea.value);
+    //   ^^ this is reactive
+    //   console.log(showTextArea);
+    //   ^^ this is not reactive
+  },
+  {
+    onTrack(e) {
+      // triggered when count.value is tracked as a dependency
+      console.log("onTrack", e);
+    },
+    onTrigger(e) {
+      // triggered when count.value is mutated
+      console.log("onTrigger", e);
+    }
+  }
+);
 
 const onSubmit = () => {
   if (!model.value.selectedAnime) {
