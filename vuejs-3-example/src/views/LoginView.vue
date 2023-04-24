@@ -1,6 +1,6 @@
 <template>
-  <main class="w-full max-w-[640px] mx-auto mt-[30%] px-3 sm:px-6">
-    <form @submit.prevent="onSubmit">
+  <main class="w-full max-w-[640px] h-[100vh] mx-auto grid place-content-center px-3 sm:px-6">
+    <form class="w-[400px]" @submit.prevent="onSubmit">
       <h3 class="text-center">Login Credentials</h3>
       <input
         v-model="model"
