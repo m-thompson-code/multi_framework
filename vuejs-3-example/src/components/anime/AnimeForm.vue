@@ -103,7 +103,7 @@ const onSubmit = () => {
     return;
   }
 
-  console.log("submitting", model.value);
+  // console.log("submitting", model.value);
 
   emit("formSubmit", {
     selectedAnime: model.value.selectedAnime,

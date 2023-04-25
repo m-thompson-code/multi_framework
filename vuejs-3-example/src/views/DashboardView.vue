@@ -18,7 +18,7 @@
       </GeneralCard>
     </div>
 
-    <footer class="max-h-14"></footer>
+    <footer class="h-16"></footer>
   </section>
 </template>
 

@@ -53,7 +53,7 @@ const searchLoadingRef = ref<boolean>(false);
 
 watchEffect(() => {
   // when props change from parent, put this value in input
-  console.log("Parent changing Anime Form search prop", props.modelValue);
+  // console.log("Parent changing Anime Form search prop", props.modelValue);
   searchRef.value = props.modelValue?.title ?? "";
 });
 

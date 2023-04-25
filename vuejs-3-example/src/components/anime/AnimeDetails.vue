@@ -4,7 +4,7 @@
     <div class="flex gap-4 mb-2">
       <div v-html="renderHtml2('User', animeData.user.name)"></div>
 
-      <div class="w-[2px] bg-gray-300"></div>
+      <div v-if="props.animeData.description" class="w-[2px] bg-gray-300"></div>
 
       <div v-if="props.animeData.description" v-html="renderHtml2('Description', props.animeData.description)"></div>
     </div>
@@ -18,11 +18,16 @@
       <div class="w-[2px] bg-gray-300"></div>
 
       <div v-html="renderHtml2('Duration', props.animeData.selectedAnime.duration)"></div>
+
+      <div class="w-[2px] bg-gray-300"></div>
+
+      <div>{{ hardMathEquationMemo(props.animeData.selectedAnime.score) }}</div>
     </div>
   </article>
 </template>
 
 <script setup lang="ts">
+import { hardMathEquationMemo } from "../../models/api-anime-data.model";
 import { AnimeTypeStore } from "../../store/anime.store";
 
 const props = defineProps<{

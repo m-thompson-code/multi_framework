@@ -19,7 +19,6 @@ export const useAnimeStore = defineStore({
   actions: {
     async fetchAnime(query: string) {
       const data = await getAnime(query);
-      console.log("fetched", data);
       this.loadedAnime = data;
     },
     saveAnimeToStore(anime: AnimeTypeStore) {

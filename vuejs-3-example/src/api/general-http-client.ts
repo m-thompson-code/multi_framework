@@ -13,7 +13,6 @@ export class GeneralHttpClient implements HttpClient {
   async get<T = unknown>(path: string): Promise<HttpClientResponse<T>> {
     try {
       const response = await axios.get(path);
-      console.log("will return", response);
       return [null, response.data];
     } catch (error: any) {
       this.handleError(error);

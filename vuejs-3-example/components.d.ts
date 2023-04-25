@@ -16,7 +16,6 @@ declare module '@vue/runtime-core' {
     CompCow: typeof import('./src/components/shared/CompCow.vue')['default']
     CompShark: typeof import('./src/components/shared/CompShark.vue')['default']
     GeneralCard: typeof import('./src/components/shared/GeneralCard.vue')['default']
-    InluneInput: typeof import('./src/components/shared/InluneInput.vue')['default']
     InputModal: typeof import('./src/components/shared/InputModal.vue')['default']
     Loader: typeof import('./src/components/shared/Loader.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
