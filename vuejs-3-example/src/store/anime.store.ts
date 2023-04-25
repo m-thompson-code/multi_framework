@@ -1,3 +1,4 @@
+import { useLocalStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
 import { getAnime } from "../api/api-anime";
 import { AnimeData } from "../models/api-anime-data.model";
@@ -12,10 +13,15 @@ export type AnimeTypeStore = {
 
 export const useAnimeStore = defineStore({
   id: "anime",
-  state: () => ({
-    storedAnime: [] as AnimeTypeStore[],
-    loadedAnime: [] as AnimeData[]
-  }),
+  state: () => {
+    const storedAnime = useLocalStorage<AnimeTypeStore[]>("storedAnime", []);
+    const loadedAnime = [] as AnimeData[];
+
+    return {
+      storedAnime,
+      loadedAnime
+    };
+  },
   actions: {
     async fetchAnime(query: string) {
       const data = await getAnime(query);
@@ -34,6 +40,9 @@ export const useAnimeStore = defineStore({
         }
         return item;
       });
+    },
+    clearAnimeStore() {
+      this.storedAnime = [];
     }
   },
   getters: {

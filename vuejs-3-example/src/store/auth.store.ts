@@ -1,3 +1,4 @@
+import { useLocalStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
 
 export type User = {
@@ -6,9 +7,13 @@ export type User = {
 
 export const useAuthenticationStore = defineStore({
   id: "authentication",
-  state: () => ({
-    user: null as User | null
-  }),
+  state: () => {
+    const user = useLocalStorage<User | null>("authenticationUser", {} as User);
+
+    return {
+      user
+    };
+  },
   actions: {
     login(name: string) {
       this.user = {

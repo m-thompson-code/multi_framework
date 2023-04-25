@@ -19,13 +19,15 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthenticationStore } from "../store";
+import { useAnimeStore, useAuthenticationStore } from "../store";
 
 const authenticationStore = useAuthenticationStore();
+const animeStore = useAnimeStore();
 
 const onLogOut = () => {
   console.log("onLogOut");
   authenticationStore.logout();
+  animeStore.clearAnimeStore();
 };
 </script>
 
