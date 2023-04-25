@@ -10,11 +10,13 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AnimeDetails: typeof import('./src/components/anime/AnimeDetails.vue')['default']
+    AnimeDetailsContainer: typeof import('./src/components/anime/AnimeDetailsContainer.vue')['default']
     AnimeForm: typeof import('./src/components/anime/AnimeForm.vue')['default']
     AnimeFormSearch: typeof import('./src/components/anime/AnimeFormSearch.vue')['default']
     GeneralCard: typeof import('./src/components/shared/GeneralCard.vue')['default']
     InluneInput: typeof import('./src/components/shared/InluneInput.vue')['default']
     InputModal: typeof import('./src/components/shared/InputModal.vue')['default']
+    Loader: typeof import('./src/components/shared/Loader.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
