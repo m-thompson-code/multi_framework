@@ -32,10 +32,9 @@
 
 <script setup lang="ts">
 // import { computed, ref, watchEffect } from "vue";
+import { useValidator } from "../../composable/useValidator";
 import type { AnimeFormType } from "../../models";
-import { User, useAuthenticationStore } from "../../store";
-import { AnimeTypeStore } from "../../store/anime.store";
-import { useValidator } from "../../utils";
+import { AnimeTypeStore, User, useAuthenticationStore } from "../../store";
 import AnimeFormSearch from "./AnimeFormSearch.vue";
 
 const emit = defineEmits<{

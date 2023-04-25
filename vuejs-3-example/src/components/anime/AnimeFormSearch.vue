@@ -27,9 +27,9 @@
 <script setup lang="ts">
 import { watchDebounced } from "@vueuse/core";
 import { PropType, computed, ref, watchEffect } from "vue";
+import { useValidator } from "../../composable/useValidator";
 import { AnimeData } from "../../models/api-anime-data.model";
 import { useAnimeStore } from "../../store/anime.store";
-import { useValidator } from "../../utils";
 
 const animeStore = useAnimeStore();
 
