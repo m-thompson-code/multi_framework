@@ -13,6 +13,8 @@ declare module '@vue/runtime-core' {
     AnimeDetailsContainer: typeof import('./src/components/anime/AnimeDetailsContainer.vue')['default']
     AnimeForm: typeof import('./src/components/anime/AnimeForm.vue')['default']
     AnimeFormSearch: typeof import('./src/components/anime/AnimeFormSearch.vue')['default']
+    CompCow: typeof import('./src/components/shared/CompCow.vue')['default']
+    CompShark: typeof import('./src/components/shared/CompShark.vue')['default']
     GeneralCard: typeof import('./src/components/shared/GeneralCard.vue')['default']
     InluneInput: typeof import('./src/components/shared/InluneInput.vue')['default']
     InputModal: typeof import('./src/components/shared/InputModal.vue')['default']

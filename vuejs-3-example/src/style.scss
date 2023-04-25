@@ -17,6 +17,6 @@ button[type="submit"] {
 
 button {
   &.general {
-    @apply p-2 rounded-lg min-w-[120px];
+    @apply p-2 rounded-lg min-w-[120px] shadow-md;
   }
 }
