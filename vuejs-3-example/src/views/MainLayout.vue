@@ -1,8 +1,10 @@
 <template>
-  <nav class="flex items-center justify-between w-full gap-4 p-4 bg-green-700">
+  <nav class="flex items-center justify-between w-full gap-4 p-4 mt-2 bg-green-700">
     <router-link to="/dashboard" class="link"> Dashboard </router-link>
     <router-link to="/login" class="link" @click="onLogOut"> Logout </router-link>
   </nav>
+
+  <Banner />
 
   <h3 class="mt-20 text-xl text-center">Welcome: {{ authenticationStore.user?.name }}</h3>
 
@@ -25,7 +27,6 @@ const authenticationStore = useAuthenticationStore();
 const animeStore = useAnimeStore();
 
 const onLogOut = () => {
-  console.log("onLogOut");
   authenticationStore.logout();
   animeStore.clearAnimeStore();
 };
