@@ -19,7 +19,9 @@
       </div>
 
       <!-- dynamic component -->
-      <component :is="dynamicComponent" />
+      <keep-alive>
+        <component :is="dynamicComponent" />
+      </keep-alive>
     </div>
   </section>
 </template>
@@ -36,7 +38,7 @@ const showModal = ref<boolean>(false);
 const animeId = route.params.id as string;
 const animeData = animeStore.getAnimeTypeStoreById(Number(animeId)) as AnimeTypeStore;
 
-const dynamicComponent = ref();
+const dynamicComponent = shallowRef();
 
 onMounted(() => {
   console.log("mounted");
