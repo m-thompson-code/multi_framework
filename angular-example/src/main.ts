@@ -1,8 +1,16 @@
 import { HttpClientModule } from '@angular/common/http';
-import { importProvidersFrom } from '@angular/core';
+import { importProvidersFrom, inject } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { PreloadAllModules, Routes, provideRouter, withPreloading } from '@angular/router';
+import {
+	ActivatedRouteSnapshot,
+	PreloadAllModules,
+	Router,
+	Routes,
+	provideRouter,
+	withPreloading,
+} from '@angular/router';
 import { AppComponent } from './app/app.component';
+import { AuthService } from './app/services/auth.service';
 import { DashboardComponent } from './app/views/dashboard.component';
 import { LoginViewComponent } from './app/views/login-view.component';
 import { MainComponent } from './app/views/main.component';
@@ -20,6 +28,18 @@ const routes: Routes = [
 						path: 'dashboard',
 						loadChildren: () =>
 							import('./app/views/dashboard.component').then((m) => [{ path: '', component: DashboardComponent }]),
+						canActivate: [
+							(route: ActivatedRouteSnapshot) => {
+								const authenticationFacadeService = inject(AuthService);
+								const router = inject(Router);
+
+								if (!authenticationFacadeService.user) {
+									router.navigate(['/login']);
+								}
+
+								return true;
+							},
+						],
 					},
 				],
 			},
