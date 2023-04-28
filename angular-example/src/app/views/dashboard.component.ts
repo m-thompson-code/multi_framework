@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { AnimeFormComponent } from '../components/anime-form.component';
+import { AnimeFormComponent } from '../components/anime/anime-form.component';
 
 @Component({
 	selector: 'app-dashboard',

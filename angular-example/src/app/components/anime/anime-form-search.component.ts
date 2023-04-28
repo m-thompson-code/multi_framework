@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { useValidator } from '../composable/useValidator';
-import { AnimeData } from '../models/api-anime-data.model';
-import { AnimeService } from '../services/anime.service';
+import { useValidator } from '../../composable/useValidator';
+import { AnimeData } from '../../models/api-anime-data.model';
+import { AnimeService } from '../../services/anime.service';
 
 @Component({
 	selector: 'app-anime-form-search',

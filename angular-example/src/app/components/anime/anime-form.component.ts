@@ -10,10 +10,10 @@ import {
 	signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { useValidator } from '../composable/useValidator';
-import { AnimeFormType } from '../models';
-import { AnimeTypeStore } from '../services/anime.service';
-import { AuthService, User } from '../services/auth.service';
+import { useValidator } from '../../composable/useValidator';
+import { AnimeFormType } from '../../models';
+import { AnimeTypeStore } from '../../services/anime.service';
+import { AuthService, User } from '../../services/auth.service';
 import { AnimeFormSearchComponent } from './anime-form-search.component';
 
 @Component({
