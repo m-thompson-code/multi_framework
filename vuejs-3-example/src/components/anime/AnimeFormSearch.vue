@@ -14,7 +14,7 @@
         v-for="data in animeStore.getLoadedAnime"
         :key="data.title"
         type="button"
-        class="select-value"
+        class="g-select-value"
         @click="onClick(data)"
       >
         {{ data.title }}
@@ -114,8 +114,4 @@ const onInputKeyDown = () => {
 };
 </script>
 
-<style scoped>
-.select-value {
-  @apply w-full p-4 even:bg-gray-300 odd:bg-gray-100 border rounded-lg border-gray-700 cursor-pointer hover:bg-green-100 text-start duration-300 transition-all;
-}
-</style>
+<style scoped></style>
