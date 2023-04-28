@@ -26,3 +26,6 @@ button {
 .g-select-value {
 	@apply w-full p-4 even:bg-gray-300 odd:bg-gray-100 border rounded-lg border-gray-700 cursor-pointer hover:bg-green-100 text-start duration-300 transition-all;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

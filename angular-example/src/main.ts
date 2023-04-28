@@ -14,6 +14,7 @@ import { AuthService } from './app/services/auth.service';
 import { DashboardComponent } from './app/views/dashboard.component';
 import { LoginViewComponent } from './app/views/login-view.component';
 import { MainComponent } from './app/views/main.component';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
 	{
@@ -53,5 +54,5 @@ const routes: Routes = [
 ];
 
 bootstrapApplication(AppComponent, {
-	providers: [importProvidersFrom(HttpClientModule), provideRouter(routes, withPreloading(PreloadAllModules))],
+	providers: [importProvidersFrom(HttpClientModule), provideRouter(routes, withPreloading(PreloadAllModules)), provideAnimations()],
 });
