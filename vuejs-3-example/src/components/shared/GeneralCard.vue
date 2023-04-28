@@ -1,15 +1,30 @@
 <template>
   <div class="p-4 bg-white rounded-lg shadow-md">
-    <!-- header -->
     <div class="flex items-center justify-between">
+      <!-- header -->
       <h3 class="text-lg">{{ props.title }}</h3>
       <div class="flex items-center gap-2">
-        <Icon v-if="showEditButton" icon="material-symbols:edit" class="w-8 h-8 cursor-pointer" @click="onEditClick" />
+        <Icon
+          v-if="showEditButton"
+          icon="material-symbols:edit"
+          class="w-8 h-8 cursor-pointer"
+          @click="$emit('editClicked')"
+        />
 
-        <button v-if="showButtonDetails" type="button" class="text-white bg-blue-600 general" @click="onDetails">
+        <button
+          v-if="showButtonDetails"
+          type="button"
+          class="text-white bg-blue-600 general"
+          @click="$emit('detailsClicked')"
+        >
           Details
         </button>
-        <button v-if="showButtonDelete" type="button" class="text-white bg-red-600 general" @click="onDelete">
+        <button
+          v-if="showButtonDelete"
+          type="button"
+          class="text-white bg-red-600 general"
+          @click="$emit('deleteClicked')"
+        >
           Remove
         </button>
       </div>
@@ -47,23 +62,11 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits<{
+defineEmits<{
   (e: "deleteClicked", value: void): void;
   (e: "detailsClicked", value: void): void;
   (e: "editClicked", value: void): void;
 }>();
-
-const onDetails = () => {
-  emit("detailsClicked");
-};
-
-const onDelete = () => {
-  emit("deleteClicked");
-};
-
-const onEditClick = () => {
-  emit("editClicked");
-};
 </script>
 
 <style scoped></style>
