@@ -10,8 +10,8 @@ export type User = {
 })
 export class AuthService {
 	private authenticatedUserKey = 'authenticatedUser';
-	private authenticatedUser = new BehaviorSubject<User | null>(null);
-	authenticatedUser$ = this.authenticatedUser.asObservable();
+	private authenticatedUser$ = new BehaviorSubject<User | null>(null);
+	authenticatedUserObs$ = this.authenticatedUser$.asObservable();
 
 	constructor() {
 		const user = this.getAuthenticatedUserFromLocalStorage();
@@ -20,17 +20,17 @@ export class AuthService {
 		}
 	}
 
-	getAuthenticatedUser() {
-		return this.authenticatedUser.asObservable();
+	get user(): User | null {
+		return this.authenticatedUser$.value;
 	}
 
 	setAuthenticatedUser(user: User) {
-		this.authenticatedUser.next(user);
+		this.authenticatedUser$.next(user);
 		this.saveAuthenticatedUserIntoLocalStorage(user);
 	}
 
 	removeAuthenticatedUser() {
-		this.authenticatedUser.next(null);
+		this.authenticatedUser$.next(null);
 		this.removeAuthenticatedUserFromLocalStorage();
 	}
 

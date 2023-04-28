@@ -4,20 +4,25 @@
 @tailwind utilities;
 
 form {
-  @apply flex flex-col gap-4;
+	@apply flex flex-col gap-4;
 }
 
 textarea,
 input {
-  @apply border border-gray-300 rounded-md p-2;
+	@apply border border-gray-300 rounded-md p-2;
 }
 
-button[type="submit"] {
-  @apply px-5 py-2 bg-green-700 text-white hover:bg-green-400 rounded-lg text-lg cursor-pointer duration-300 transition-all;
+button[type='submit'],
+a {
+	@apply px-5 py-2 bg-green-700 text-white hover:bg-green-400 rounded-lg text-lg cursor-pointer duration-300 transition-all;
 }
 
 button {
-  &.general {
-    @apply p-2 rounded-lg min-w-[120px] shadow-md;
-  }
+	&.general {
+		@apply p-2 rounded-lg min-w-[120px] shadow-md;
+	}
+}
+
+.g-select-value {
+	@apply w-full p-4 even:bg-gray-300 odd:bg-gray-100 border rounded-lg border-gray-700 cursor-pointer hover:bg-green-100 text-start duration-300 transition-all;
 }
