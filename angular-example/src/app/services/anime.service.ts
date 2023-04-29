@@ -25,17 +25,12 @@ export class AnimeService {
 
 	constructor(private animeApiService: AnimeApiService) {}
 
-	getAnimeTypeStoreById(id: number): Observable<AnimeTypeStore | undefined> {
-		return this.storedAnime$.asObservable().pipe(
-			// get the first item that matches the condition
-			map((anime) => anime.find((a) => a.selectedAnime.mal_id === id))
-		);
+	getAnimeTypeStoreById(id: number | string): Observable<AnimeTypeStore | undefined> {
+		return this.storedAnimeObs$.pipe(map((anime) => anime.find((a) => a.selectedAnime.mal_id === Number(id))));
 	}
 
-	fetchAnime(query: string) {
-		console.log('query', query);
+	fetchAnime(query: string): void {
 		this.animeApiService.getAnime(query).subscribe((data) => {
-			console.log('data from api', data);
 			this.loadedAnime.next(data);
 		});
 	}

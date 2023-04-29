@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-	selector: 'app-dashboard',
+	selector: 'app-loader',
 	standalone: true,
 	imports: [CommonModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,4 +28,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 		</div>
 	`,
 })
-export class DashboardComponent {}
+export class LoaderComponent {}

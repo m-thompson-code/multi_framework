@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { AnimeDetailsComponent } from '../components/anime/anime-details.component';
 import { AnimeFormComponent } from '../components/anime/anime-form.component';
 import { GeneralCardComponent } from '../components/shared/general-card.component';
 import { AnimeService, AnimeTypeStore } from '../services/anime.service';
@@ -8,7 +9,7 @@ import { AnimeService, AnimeTypeStore } from '../services/anime.service';
 @Component({
 	selector: 'app-dashboard',
 	standalone: true,
-	imports: [CommonModule, AnimeFormComponent, GeneralCardComponent],
+	imports: [CommonModule, AnimeFormComponent, GeneralCardComponent, AnimeDetailsComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<section>
@@ -25,7 +26,7 @@ import { AnimeService, AnimeTypeStore } from '../services/anime.service';
 					(detailsClicked)="onDetails(data)"
 					(deleteClicked)="onDelete(data)"
 				>
-					LOLOLOL
+					<app-anime-details [animeData]="data"></app-anime-details>
 				</app-general-card>
 			</div>
 
