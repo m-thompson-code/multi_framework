@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
 	selector: 'app-main',
@@ -14,7 +14,9 @@ import { AuthService } from '../services/auth.service';
 			<a routerLink="/login" class="link" (click)="onLogOut()"> Logout </a>
 		</nav>
 
-		<h3 class="mt-20 text-xl text-center">Welcome: {{ (authenticationStore.authenticatedUserObs$ | async)?.name }}</h3>
+		<div class="mt-20 text-xl text-center">
+			Welcome: {{ (authenticationStore.authenticatedUserObs$ | async)?.name }}
+		</div>
 
 		<main class="w-full max-w-[840px] mx-auto mt-20 px-3 sm:px-6">
 			<router-outlet></router-outlet>

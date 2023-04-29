@@ -11,11 +11,11 @@ import {
 	withPreloading,
 } from '@angular/router';
 import { AppComponent } from './app/app.component';
+import { AnimeDetailsComponent } from './app/components/views/anime-details.component';
+import { DashboardComponent } from './app/components/views/dashboard.component';
+import { LoginViewComponent } from './app/components/views/login-view.component';
+import { MainComponent } from './app/components/views/main.component';
 import { AuthService } from './app/services/auth.service';
-import { AnimeDetailsComponent } from './app/views/anime-details.component';
-import { DashboardComponent } from './app/views/dashboard.component';
-import { LoginViewComponent } from './app/views/login-view.component';
-import { MainComponent } from './app/views/main.component';
 
 const routes: Routes = [
 	{
@@ -29,7 +29,9 @@ const routes: Routes = [
 					{
 						path: 'dashboard',
 						loadChildren: () =>
-							import('./app/views/dashboard.component').then((m) => [{ path: '', component: DashboardComponent }]),
+							import('./app/components/views/dashboard.component').then((m) => [
+								{ path: '', component: DashboardComponent },
+							]),
 						canActivate: [
 							(route: ActivatedRouteSnapshot) => {
 								const authenticationFacadeService = inject(AuthService);
@@ -46,7 +48,7 @@ const routes: Routes = [
 					{
 						path: 'anime/:id',
 						loadChildren: () =>
-							import('./app/views/anime-details.component').then((m) => [
+							import('./app/components/views/anime-details.component').then((m) => [
 								{ path: '', component: AnimeDetailsComponent },
 							]),
 					},
@@ -55,7 +57,9 @@ const routes: Routes = [
 			{
 				path: 'login',
 				loadChildren: () =>
-					import('./app/views/login-view.component').then((m) => [{ path: '', component: LoginViewComponent }]),
+					import('./app/components/views/login-view.component').then((m) => [
+						{ path: '', component: LoginViewComponent },
+					]),
 			},
 		],
 	},

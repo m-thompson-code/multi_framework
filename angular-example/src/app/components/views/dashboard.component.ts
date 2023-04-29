@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AnimeDetailsComponent } from '../components/anime/anime-details.component';
-import { AnimeFormComponent } from '../components/anime/anime-form.component';
-import { GeneralCardComponent } from '../components/shared/general-card.component';
-import { AnimeService, AnimeTypeStore } from '../services/anime.service';
+import { AnimeService, AnimeTypeStore } from '../../services/anime.service';
+import { AnimeDetailsComponent } from '../anime/anime-details.component';
+import { AnimeFormComponent } from '../anime/anime-form.component';
+import { GeneralCardComponent } from '../shared/general-card.component';
 
 @Component({
 	selector: 'app-dashboard',

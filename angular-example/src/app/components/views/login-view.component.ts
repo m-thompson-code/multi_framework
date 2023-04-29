@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from './../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
 	selector: 'app-login-view',
@@ -12,7 +12,8 @@ import { AuthService } from './../services/auth.service';
 			<form class="w-[400px]" (ngSubmit)="onFormSubmit()">
 				<h3 class="text-center">Login Credentials</h3>
 				<input
-					[(ngModel)]="model.username"
+					(ngModel)="username()"
+					(ngModelChange)="username.set($event)"
 					required
 					minlength="3"
 					autocomplete="off"
@@ -29,13 +30,11 @@ export class LoginViewComponent {
 	private authService = inject(AuthService);
 	private router = inject(Router);
 
-	model = {
-		username: '',
-	};
+	username = signal('');
 
 	onFormSubmit() {
-		console.log(this.model.username);
-		this.authService.setAuthenticatedUser({ name: this.model.username });
+		console.log(this.username());
+		this.authService.setAuthenticatedUser({ name: this.username() });
 		this.router.navigate(['dashboard']);
 	}
 }
