@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { AnimeTypeStore, useAnimeStore } from "../store/anime.store";
+import { AnimeTypeStore, useAnimeStore } from "../../store/anime.store";
 
 const animeStore = useAnimeStore();
 const router = useRouter();

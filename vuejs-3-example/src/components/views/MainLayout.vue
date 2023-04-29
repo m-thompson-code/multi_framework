@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAnimeStore, useAuthenticationStore } from "../store";
+import { useAnimeStore, useAuthenticationStore } from "../../store";
 
 const authenticationStore = useAuthenticationStore();
 const animeStore = useAnimeStore();

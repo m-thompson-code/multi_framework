@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthenticationStore } from "../store";
+import { useAuthenticationStore } from "../../store";
 
 const model = ref<string>("");
 const authenticationStore = useAuthenticationStore();

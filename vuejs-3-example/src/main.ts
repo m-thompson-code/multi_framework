@@ -3,11 +3,11 @@ import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
 
+import Login from "./components/views/LoginView.vue";
+import Main from "./components/views/MainLayout.vue";
 import { DisplayForTime, displayForTime, displayForTime2 } from "./directives/display-for-time";
 import { useAuthenticationStore } from "./store";
 import "./style.scss";
-import Login from "./views/LoginView.vue";
-import Main from "./views/MainLayout.vue";
 
 const router = createRouter({
   // Provide the history implementation to use. We are using the hash history for simplicity here.
@@ -18,8 +18,8 @@ const router = createRouter({
       component: Main, // eager load
       children: [
         // lazy load
-        { path: "dashboard", component: () => import("./views/DashboardView.vue") },
-        { path: "anime/:id", component: () => import("./views/AnimeDetailsView.vue") }
+        { path: "dashboard", component: () => import("./components/views/DashboardView.vue") },
+        { path: "anime/:id", component: () => import("./components/views/AnimeDetailsView.vue") }
       ]
     },
     { path: "/login", component: Login }

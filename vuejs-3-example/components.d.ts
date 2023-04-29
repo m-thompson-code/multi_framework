@@ -11,14 +11,18 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AnimeDetails: typeof import('./src/components/anime/AnimeDetails.vue')['default']
     AnimeDetailsContainer: typeof import('./src/components/anime/AnimeDetailsContainer.vue')['default']
+    AnimeDetailsView: typeof import('./src/components/views/AnimeDetailsView.vue')['default']
     AnimeForm: typeof import('./src/components/anime/AnimeForm.vue')['default']
     AnimeFormSearch: typeof import('./src/components/anime/AnimeFormSearch.vue')['default']
     Banner: typeof import('./src/components/shared/Banner.vue')['default']
     CompCow: typeof import('./src/components/shared/CompCow.vue')['default']
     CompShark: typeof import('./src/components/shared/CompShark.vue')['default']
+    DashboardView: typeof import('./src/components/views/DashboardView.vue')['default']
     GeneralCard: typeof import('./src/components/shared/GeneralCard.vue')['default']
     InputModal: typeof import('./src/components/shared/InputModal.vue')['default']
     Loader: typeof import('./src/components/shared/Loader.vue')['default']
+    LoginView: typeof import('./src/components/views/LoginView.vue')['default']
+    MainLayout: typeof import('./src/components/views/MainLayout.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
