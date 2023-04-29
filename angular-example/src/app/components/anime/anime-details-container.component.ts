@@ -1,9 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ComponentRef,
+	OnDestroy,
+	ViewChild,
+	ViewContainerRef,
+	inject,
+} from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { delay, filter, map, switchMap } from 'rxjs';
 import { AnimeService, AnimeTypeStore } from '../../services/anime.service';
+import { CompCowComponent } from '../shared/comp-cow.component';
+import { CompSharkComponent } from '../shared/comp-shark.component';
 import { GeneralCardComponent } from '../shared/general-card.component';
 import { InputModalComponent } from '../shared/input-modal.component';
 import { LoaderComponent } from '../shared/loader.component';
@@ -28,11 +38,12 @@ import { AnimeDetailsComponent } from './anime-details.component';
 			<!-- display buttons for dynamic component -->
 			<div class="grid mt-20 place-content-center">
 				<div class="flex items-center justify-center gap-4 mb-10">
-					<button class="bg-blue-500 general">Shark</button>
-					<button class="bg-white general">Cow</button>
+					<button class="bg-blue-500 general" (click)="renderDynamic('shark')">Shark</button>
+					<button class="bg-white general" (click)="renderDynamic('cow')">Cow</button>
 				</div>
 
 				<!-- dynamic component -->
+				<template #dynamicComponent></template>
 			</div>
 		</ng-container>
 
@@ -42,16 +53,32 @@ import { AnimeDetailsComponent } from './anime-details.component';
 		</ng-template>
 	`,
 })
-export class AnimeDetailsContainerComponent {
+export class AnimeDetailsContainerComponent implements OnDestroy {
 	route = inject(ActivatedRoute);
 	animeStore = inject(AnimeService);
 	dialog = inject(MatDialog);
+
+	@ViewChild('dynamicComponent', { read: ViewContainerRef }) dynamicComponent!: ViewContainerRef;
+	private dynamicComponentRef?: ComponentRef<any>;
 
 	selectedAnime$ = this.route.params.pipe(
 		map((params) => params['id']),
 		delay(3000),
 		switchMap((id) => this.animeStore.getAnimeTypeStoreById(id))
 	);
+
+	ngOnDestroy(): void {
+		this.dynamicComponentRef?.destroy();
+	}
+
+	renderDynamic(component: 'shark' | 'cow') {
+		// prevent creating more than 1 component
+		this.dynamicComponent.clear();
+		// resolve component
+		const dynamicComponent = component === 'shark' ? CompSharkComponent : CompCowComponent;
+		// save ref to clear on component is destroy
+		this.dynamicComponentRef = this.dynamicComponent.createComponent(dynamicComponent as any);
+	}
 
 	onModalDisplay(data: AnimeTypeStore) {
 		this.dialog
