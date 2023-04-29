@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AnimeTypeStore } from '../../services/anime.service';
 import { hardMathEquation } from './../../models/api-anime-data.model';
 
@@ -7,7 +7,7 @@ import { hardMathEquation } from './../../models/api-anime-data.model';
 	selector: 'app-anime-details',
 	standalone: true,
 	imports: [CommonModule],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	//changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-template #reuseTemplate let-data="passingData">
 			<div class="space-x-1">

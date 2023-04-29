@@ -26,19 +26,11 @@ export class AuthService {
 
 	setAuthenticatedUser(user: User) {
 		this.authenticatedUser$.next(user);
-		this.saveAuthenticatedUserIntoLocalStorage(user);
+		localStorage.setItem(this.authenticatedUserKey, JSON.stringify(user));
 	}
 
 	removeAuthenticatedUser() {
 		this.authenticatedUser$.next(null);
-		this.removeAuthenticatedUserFromLocalStorage();
-	}
-
-	private saveAuthenticatedUserIntoLocalStorage(user: User) {
-		localStorage.setItem(this.authenticatedUserKey, JSON.stringify(user));
-	}
-
-	private removeAuthenticatedUserFromLocalStorage() {
 		localStorage.removeItem(this.authenticatedUserKey);
 	}
 

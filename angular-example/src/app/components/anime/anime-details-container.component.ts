@@ -1,16 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { delay, map, switchMap } from 'rxjs';
+import { delay, filter, map, switchMap } from 'rxjs';
 import { AnimeService, AnimeTypeStore } from '../../services/anime.service';
 import { GeneralCardComponent } from '../shared/general-card.component';
+import { InputModalComponent } from '../shared/input-modal.component';
 import { LoaderComponent } from '../shared/loader.component';
 import { AnimeDetailsComponent } from './anime-details.component';
 
 @Component({
 	selector: 'app-anime-details-container',
 	standalone: true,
-	imports: [CommonModule, GeneralCardComponent, AnimeDetailsComponent, LoaderComponent],
+	imports: [CommonModule, GeneralCardComponent, AnimeDetailsComponent, LoaderComponent, MatDialogModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-container *ngIf="selectedAnime$ | async as anime; else loading">
@@ -43,6 +45,7 @@ import { AnimeDetailsComponent } from './anime-details.component';
 export class AnimeDetailsContainerComponent {
 	route = inject(ActivatedRoute);
 	animeStore = inject(AnimeService);
+	dialog = inject(MatDialog);
 
 	selectedAnime$ = this.route.params.pipe(
 		map((params) => params['id']),
@@ -50,11 +53,18 @@ export class AnimeDetailsContainerComponent {
 		switchMap((id) => this.animeStore.getAnimeTypeStoreById(id))
 	);
 
-	constructor() {
-		this.selectedAnime$.subscribe((data) => console.log(data));
-	}
-
 	onModalDisplay(data: AnimeTypeStore) {
-		console.log(data);
+		this.dialog
+			.open(InputModalComponent, {
+				data: {
+					message: data.description,
+				},
+			})
+			.afterClosed()
+			.pipe(filter((d): d is string => !!d))
+			.subscribe((newDescription) => {
+				console.log(newDescription);
+				this.animeStore.editAnimeInStore(data.selectedAnime.mal_id, newDescription);
+			});
 	}
 }
