@@ -11,7 +11,8 @@ input {
   @apply border border-gray-300 rounded-md p-2;
 }
 
-button[type="submit"] {
+button[type="submit"],
+a {
   @apply px-5 py-2 bg-green-700 text-white hover:bg-green-400 rounded-lg text-lg cursor-pointer duration-300 transition-all;
 }
 
