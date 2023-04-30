@@ -65,7 +65,7 @@ export class AnimeDetailsContainerComponent implements OnDestroy {
 	selectedAnime$ = this.route.params.pipe(
 		map((params) => params['id']),
 		delay(3000),
-		switchMap((id) => this.animeStore.getAnimeTypeStoreById(id))
+		switchMap(async (id) => this.animeStore.getAnimeTypeStoreById(id))
 	);
 
 	ngOnDestroy(): void {

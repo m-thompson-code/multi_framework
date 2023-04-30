@@ -37,7 +37,7 @@ export class AnimeService {
 		return this.loadedAnime();
 	}
 
-	async getAnimeTypeStoreById(id: number | string): Promise<AnimeTypeStore | undefined> {
+	getAnimeTypeStoreById(id: number | string): AnimeTypeStore | undefined {
 		return this.storedAnime().find((a) => a.selectedAnime.mal_id === Number(id));
 	}
 
