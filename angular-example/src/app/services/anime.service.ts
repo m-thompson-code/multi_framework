@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 import { AnimeData } from '../models/api-anime-data.model';
 import { AnimeApiService } from './../api/anime-api.service';
 import { User } from './auth.service';
@@ -15,53 +14,60 @@ export type AnimeTypeStore = {
 	providedIn: 'root',
 })
 export class AnimeService {
-	// data selected by user
 	private storedAnimeKey = 'storedAnimeKey';
-	private storedAnime$ = new BehaviorSubject<AnimeTypeStore[]>([]);
-	storedAnimeObs$ = this.storedAnime$.asObservable();
+
+	// data selected by user
+	private storedAnime = signal<AnimeTypeStore[]>([]);
 
 	// data loaded from API
-	private loadedAnime = new BehaviorSubject<AnimeData[]>([]);
-	loadedAnimeObs$ = this.loadedAnime.asObservable();
+	private loadedAnime = signal<AnimeData[]>([]);
 
 	constructor(private animeApiService: AnimeApiService) {
 		const storedAnime = this.getStoredAnimeFromLocalStorage();
 		if (storedAnime) {
-			this.storedAnime$.next(storedAnime);
+			this.storedAnime.set(storedAnime);
 		}
 	}
 
-	getAnimeTypeStoreById(id: number | string): Observable<AnimeTypeStore | undefined> {
-		return this.storedAnimeObs$.pipe(map((anime) => anime.find((a) => a.selectedAnime.mal_id === Number(id))));
+	getStoredAnime(): AnimeTypeStore[] {
+		return this.storedAnime();
+	}
+
+	getLoadedAnime(): AnimeData[] {
+		return this.loadedAnime();
+	}
+
+	async getAnimeTypeStoreById(id: number | string): Promise<AnimeTypeStore | undefined> {
+		return this.storedAnime().find((a) => a.selectedAnime.mal_id === Number(id));
 	}
 
 	fetchAnime(query: string): void {
 		this.animeApiService.getAnime(query).subscribe((data) => {
-			this.loadedAnime.next(data);
+			this.loadedAnime.set(data);
 		});
 	}
 
 	saveAnimeToStore(anime: AnimeTypeStore): void {
-		this.storedAnime$.next([...this.storedAnime$.value, anime]);
-		localStorage.setItem(this.storedAnimeKey, JSON.stringify(this.storedAnime$.value));
+		this.storedAnime.set([...this.storedAnime(), anime]);
+		localStorage.setItem(this.storedAnimeKey, JSON.stringify(this.storedAnime()));
 	}
 
 	deleteAnimeFromStore(anime: AnimeTypeStore): void {
-		this.storedAnime$.next(this.storedAnime$.value.filter((a) => a !== anime));
+		this.storedAnime.set(this.storedAnime().filter((a) => a !== anime));
 	}
 
 	editAnimeInStore(animeId: number, newDescription: string): void {
-		const changedData = this.storedAnime$.value.map((item) => {
+		const changedData = this.storedAnime().map((item) => {
 			if (item.selectedAnime.mal_id === animeId) {
 				item.description = newDescription;
 			}
 			return item;
 		});
-		this.storedAnime$.next(changedData);
+		this.storedAnime.set(changedData);
 	}
 
 	cleanAnimeStore(): void {
-		this.storedAnime$.next([]);
+		this.storedAnime.set([]);
 		localStorage.removeItem(this.storedAnimeKey);
 	}
 

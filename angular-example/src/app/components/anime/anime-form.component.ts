@@ -114,7 +114,7 @@ export class AnimeFormComponent {
 			selectedAnime: modelValues.selectedAnime,
 			description: modelValues.description,
 			isCool: modelValues.isCool,
-			user: this.authService.user as User,
+			user: this.authService.getUser() as User,
 		});
 
 		this.clearForm();
@@ -150,6 +150,7 @@ export class AnimeFormComponent {
 	}
 
 	clearForm() {
+		this.showTextArea.set(false);
 		this.model.set({
 			selectedAnime: null,
 			description: '',

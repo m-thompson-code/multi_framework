@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 
 export type User = {
 	name: string;
@@ -10,8 +9,7 @@ export type User = {
 })
 export class AuthService {
 	private authenticatedUserKey = 'authenticatedUser';
-	private authenticatedUser$ = new BehaviorSubject<User | null>(null);
-	authenticatedUserObs$ = this.authenticatedUser$.asObservable();
+	private authenticatedUser = signal<User | null>(null);
 
 	constructor() {
 		const user = this.getAuthenticatedUserFromLocalStorage();
@@ -20,17 +18,17 @@ export class AuthService {
 		}
 	}
 
-	get user(): User | null {
-		return this.authenticatedUser$.value;
+	getUser(): User | null {
+		return this.authenticatedUser();
 	}
 
 	setAuthenticatedUser(user: User) {
-		this.authenticatedUser$.next(user);
+		this.authenticatedUser.set(user);
 		localStorage.setItem(this.authenticatedUserKey, JSON.stringify(user));
 	}
 
 	removeAuthenticatedUser() {
-		this.authenticatedUser$.next(null);
+		this.authenticatedUser.set(null);
 		localStorage.removeItem(this.authenticatedUserKey);
 	}
 

@@ -15,11 +15,11 @@ import { GeneralCardComponent } from '../shared/general-card.component';
 		<section>
 			<app-anime-form (formSubmit)="onFormSubmit($event)"></app-anime-form>
 
-			<div class="mt-12 mb-3">Total Selected Data: {{ (animeStore.storedAnimeObs$ | async)?.length }}</div>
+			<div class="mt-12 mb-3">Total Selected Data: {{ animeStore.getStoredAnime().length }}</div>
 
 			<div class="flex flex-col gap-4">
 				<app-general-card
-					*ngFor="let data of animeStore.storedAnimeObs$ | async"
+					*ngFor="let data of animeStore.getStoredAnime()"
 					[title]="data.selectedAnime.title"
 					[showButtonDelete]="true"
 					[showButtonDetails]="true"

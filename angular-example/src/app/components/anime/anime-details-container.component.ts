@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
 	ChangeDetectionStrategy,
+	ChangeDetectorRef,
 	Component,
 	ComponentRef,
 	OnDestroy,
@@ -27,12 +28,11 @@ import { AnimeDetailsComponent } from './anime-details.component';
 	template: `
 		<ng-container *ngIf="selectedAnime$ | async as anime; else loading">
 			<app-general-card
-				*ngFor="let data of animeStore.storedAnimeObs$ | async"
-				[title]="data.selectedAnime.title"
+				[title]="anime.selectedAnime.title"
 				[showEditButton]="true"
-				(editClicked)="onModalDisplay(data)"
+				(editClicked)="onModalDisplay(anime)"
 			>
-				<app-anime-details [animeData]="data"></app-anime-details>
+				<app-anime-details [animeData]="anime"></app-anime-details>
 			</app-general-card>
 
 			<!-- display buttons for dynamic component -->
@@ -57,6 +57,7 @@ export class AnimeDetailsContainerComponent implements OnDestroy {
 	route = inject(ActivatedRoute);
 	animeStore = inject(AnimeService);
 	dialog = inject(MatDialog);
+	cd = inject(ChangeDetectorRef);
 
 	@ViewChild('dynamicComponent', { read: ViewContainerRef }) dynamicComponent!: ViewContainerRef;
 	private dynamicComponentRef?: ComponentRef<any>;
@@ -90,8 +91,8 @@ export class AnimeDetailsContainerComponent implements OnDestroy {
 			.afterClosed()
 			.pipe(filter((d): d is string => !!d))
 			.subscribe((newDescription) => {
-				console.log(newDescription);
 				this.animeStore.editAnimeInStore(data.selectedAnime.mal_id, newDescription);
+				this.cd.detectChanges();
 			});
 	}
 }

@@ -37,7 +37,7 @@ const routes: Routes = [
 								const authenticationFacadeService = inject(AuthService);
 								const router = inject(Router);
 
-								if (!authenticationFacadeService.user) {
+								if (!authenticationFacadeService.getUser()) {
 									router.navigate(['/login']);
 								}
 

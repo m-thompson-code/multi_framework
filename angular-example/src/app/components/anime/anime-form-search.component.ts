@@ -41,7 +41,7 @@ import { AnimeService } from '../../services/anime.service';
 			<!-- results  -->
 			<div *ngIf="!searchLoadingRef() && !searchSelectedRef() && searchRef().length > 3" class="flex flex-col w-full">
 				<button
-					*ngFor="let data of animeService.loadedAnimeObs$ | async"
+					*ngFor="let data of animeService.getLoadedAnime()"
 					type="button"
 					class="g-select-value"
 					(click)="onClick(data)"
@@ -130,10 +130,8 @@ export class AnimeFormSearchComponent implements ControlValueAccessor {
     parent component adds value to child
   */
 	writeValue(animeData?: AnimeData): void {
-		if (animeData) {
-			console.log('writeValue', animeData);
-			this.searchRef.set(animeData.title);
-		}
+		console.log('writeValue', animeData);
+		this.searchRef.set(animeData?.title ?? '');
 	}
 
 	/*
