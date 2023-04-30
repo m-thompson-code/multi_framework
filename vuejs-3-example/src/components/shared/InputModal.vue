@@ -48,7 +48,6 @@
 import { vOnClickOutside } from "@vueuse/components";
 
 const input = ref<string>("");
-const inputRef = ref<HTMLInputElement | null>(null);
 
 const prop = defineProps({
   showModal: {

@@ -1,10 +1,14 @@
 <template>
-  <nav class="flex items-center justify-between w-full gap-4 p-4 mt-2 bg-green-700">
+  <nav class="flex items-center justify-between w-full gap-4 p-4 bg-green-700">
     <router-link to="/dashboard" class="link"> Dashboard </router-link>
     <router-link to="/login" class="link" @click="onLogOut"> Logout </router-link>
   </nav>
 
-  <Banner />
+  <!-- banner -->
+  <Banner :banner-time="8" />
+
+  <!-- bottom sticky -->
+  <div v-sticky:bottom>This is a bottom</div>
 
   <h3 class="mt-20 text-xl text-center">Welcome: {{ authenticationStore.user?.name }}</h3>
 
