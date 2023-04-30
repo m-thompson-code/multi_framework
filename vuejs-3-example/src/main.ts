@@ -3,11 +3,12 @@ import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
 
-import { DisplayForTime, displayForTime, displayForTime2 } from "./directives/display-for-time";
+import Login from "./components/views/LoginView.vue";
+import Main from "./components/views/MainLayout.vue";
+import { displayForTime } from "./directives/display-for-time";
+import { sticky } from "./directives/sticky";
 import { useAuthenticationStore } from "./store";
 import "./style.scss";
-import Login from "./views/LoginView.vue";
-import Main from "./views/MainLayout.vue";
 
 const router = createRouter({
   // Provide the history implementation to use. We are using the hash history for simplicity here.
@@ -18,8 +19,8 @@ const router = createRouter({
       component: Main, // eager load
       children: [
         // lazy load
-        { path: "dashboard", component: () => import("./views/DashboardView.vue") },
-        { path: "anime/:id", component: () => import("./views/AnimeDetailsView.vue") }
+        { path: "dashboard", component: () => import("./components/views/DashboardView.vue") },
+        { path: "anime/:id", component: () => import("./components/views/AnimeDetailsView.vue") }
       ]
     },
     { path: "/login", component: Login }
@@ -43,18 +44,6 @@ router.beforeEach(async (to, from, next): Promise<void> => {
 createApp(App)
   .use(router)
   .use(createPinia())
-  .directive("sticky", function (el, binding, vnode) {
-    const loc = binding.arg === "bottom" ? "bottom" : "top";
-    el.style.position = "fixed";
-    el.style[loc] = 0;
-    if (loc === "bottom") {
-      el.style.background = "burlywood";
-    } else {
-      el.style.background = "#7e7e7e";
-    }
-  })
-  .directive("displayForTime", (el: HTMLElement, binding: DisplayForTime, vnode) => {
-    displayForTime(el, binding);
-  })
-  .directive("displayForTime2", displayForTime2)
+  .directive("sticky", sticky)
+  .directive("displayForTime", displayForTime)
   .mount("#app");

@@ -21,17 +21,14 @@
       <div v-if="props.animeData.description" v-html="renderHtml2('Description', props.animeData.description)"></div>
     </div>
     <div class="flex gap-4">
-      <!-- <div v-html="renderHtml2('Episodes', props.animeData.selectedAnime.episodes)"></div> -->
       <ReuseTemplate name="Episodes" :value="props.animeData.selectedAnime.episodes" />
 
       <div class="w-[2px] bg-gray-300"></div>
 
-      <!-- <div v-html="renderHtml2('Score', props.animeData.selectedAnime.score)"></div> -->
       <ReuseTemplate name="Score" :value="props.animeData.selectedAnime.score" />
 
       <div class="w-[2px] bg-gray-300"></div>
 
-      <!-- <div v-html="renderHtml2('Duration', props.animeData.selectedAnime.duration)"></div> -->
       <ReuseTemplate name="Duration" :value="props.animeData.selectedAnime.duration" />
 
       <div class="w-[2px] bg-gray-300"></div>

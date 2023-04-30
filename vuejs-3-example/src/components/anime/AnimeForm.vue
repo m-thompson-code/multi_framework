@@ -14,6 +14,11 @@
     <template v-if="showTextArea">
       <label>Description</label>
       <textarea v-model="model.description" />
+
+      <!-- errors in search -->
+      <div v-if="errors.descriptionError.errors.length > 0" class="flex flex-col mb-2">
+        <span v-for="(err, index) of errors.descriptionError.errors" :key="index" class="text-red-400">{{ err }}</span>
+      </div>
     </template>
 
     <!-- text if no description -->
@@ -44,6 +49,7 @@ const emit = defineEmits<{
 const authenticationStore = useAuthenticationStore();
 const showTextArea = ref(false);
 
+// need to use REF so that when form is rested it will be reflected on UI
 const model = ref<AnimeFormType>({
   selectedAnime: null,
   description: "",
@@ -93,7 +99,9 @@ watchEffect(
 );
 
 const onSubmit = () => {
-  if (!model.value.selectedAnime) {
+  const modelValues = model.value;
+
+  if (!modelValues.selectedAnime) {
     console.log("Submit form - no selected anime");
     return;
   }
@@ -103,12 +111,12 @@ const onSubmit = () => {
     return;
   }
 
-  // console.log("submitting", model.value);
+  // console.log("submitting", modelValues);
 
   emit("formSubmit", {
-    selectedAnime: model.value.selectedAnime,
-    description: model.value.description,
-    isCool: model.value.isCool,
+    selectedAnime: modelValues.selectedAnime,
+    description: modelValues.description,
+    isCool: modelValues.isCool,
     user: authenticationStore.getUser as User
   });
 
