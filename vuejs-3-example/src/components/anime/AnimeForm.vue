@@ -124,6 +124,7 @@ const onSubmit = () => {
 };
 
 const clearForm = () => {
+  showTextArea.value = false;
   model.value = {
     selectedAnime: null,
     description: "",
