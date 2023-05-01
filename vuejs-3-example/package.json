@@ -14,6 +14,8 @@
     "@vueuse/core": "^10.1.0",
     "axios": "^1.3.6",
     "pinia": "^2.0.34",
+    "unplugin-auto-import": "^0.15.3",
+    "unplugin-vue-components": "^0.24.1",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
   },
