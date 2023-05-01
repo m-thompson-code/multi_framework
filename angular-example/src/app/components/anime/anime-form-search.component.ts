@@ -5,6 +5,29 @@ import { useValidator } from '../../composable/useValidator';
 import { AnimeData } from '../../models/api-anime-data.model';
 import { AnimeService } from '../../services/anime.service';
 
+/**
+ * Debounce generator. Pass a callback function that will
+ * execute in 'delay' time. If called in succession with
+ * pending execution, pending execution will cancel.
+ */
+function debounce<T extends any[]>(callback: (...args: T) => void, delay = 0): (...args: T) => void {
+  let ref: number | undefined;
+
+  console.log('debounce set');
+
+  return (...args: T) => {
+    console.log('debounce run');
+
+    clearTimeout(ref);
+    ref = window.setTimeout(() => {
+      console.log('debounce run callback');
+
+      callback(...args);
+      ref = undefined;
+    }, delay);
+  };
+}
+
 @Component({
 	selector: 'app-anime-form-search',
 	standalone: true,
@@ -65,16 +88,25 @@ export class AnimeFormSearchComponent implements ControlValueAccessor {
 	onChange: (value: AnimeData) => void = () => {};
 	onTouched = () => {};
 
+  fetchAnime = debounce((search: string, searchSelectedRef: boolean) => {
+    // fetching anime data from api, don't fetch if I already selected
+    if (search.length > 3 && !searchSelectedRef) {
+      console.log('effect running');
+      this.searchSelectedRef.set(false);
+      this.searchLoadingRef.set(false);
+      this.animeService.fetchAnime(search);
+    }
+  }, 500);
+
 	effectRef = effect(
 		() => {
-			//console.log('effect', this.searchSelectedRef());
-			// fetching anime data from api, don't fetch if I already selected
-			if (this.searchRef().length > 3 && !this.searchSelectedRef()) {
-				console.log('eefect running');
-				this.searchSelectedRef.set(false);
-				this.searchLoadingRef.set(false);
-				this.animeService.fetchAnime(this.searchRef());
-			}
+			console.log('effect');
+      // Store signal values (must be done syncronously)
+      const search = this.searchRef();
+      const searchSelectedRef = this.searchSelectedRef();
+
+      // Call debounce helper (basically just setTimeout)
+      this.fetchAnime(search, searchSelectedRef);
 		},
 		{ allowSignalWrites: true }
 	);
